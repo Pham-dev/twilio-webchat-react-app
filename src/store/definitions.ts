@@ -43,6 +43,7 @@ export type ConfigState = {
         overrides?: Partial<GenericThemeShape>;
     };
     fileAttachment?: FileAttachmentConfig;
+    webchatContainer?:string;
 };
 
 export type Notification = {

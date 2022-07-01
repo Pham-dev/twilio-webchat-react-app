@@ -9,6 +9,7 @@ import { initConfig } from "./store/actions/initActions";
 import { ConfigState } from "./store/definitions";
 import { initLogger } from "./logger";
 
+const defaultContainer = "root";
 const defaultConfig: ConfigState = {
     serverUrl: "http://localhost:3001",
     theme: {
@@ -18,7 +19,8 @@ const defaultConfig: ConfigState = {
         enabled: true,
         maxFileSize: 16777216, // 16 MB
         acceptedExtensions: ["jpg", "jpeg", "png", "amr", "mp3", "mp4", "pdf", "txt"]
-    }
+    },
+    webchatContainer: defaultContainer
 };
 
 const initWebchat = async (config: ConfigState) => {
@@ -26,7 +28,8 @@ const initWebchat = async (config: ConfigState) => {
     sessionDataHandler.setEndpoint(mergedConfig.serverUrl);
     store.dispatch(initConfig(mergedConfig));
     initLogger();
-    const rootElement = document.getElementById("root");
+    const { webchatContainer } = mergedConfig
+    const rootElement = document.getElementById(webchatContainer ?? defaultContainer);
 
     render(
         <Provider store={store}>
